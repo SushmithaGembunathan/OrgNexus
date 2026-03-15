@@ -2,22 +2,78 @@
 <html>
 <head>
 <title>OrgNexus AI</title>
+
+<style>
+body{
+font-family: Arial;
+background:#f5f5f5;
+display:flex;
+justify-content:center;
+margin-top:50px;
+}
+
+.chatbox{
+width:400px;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+.messages{
+height:300px;
+overflow-y:auto;
+border:1px solid #ddd;
+padding:10px;
+margin-bottom:10px;
+}
+
+.user{
+text-align:right;
+color:blue;
+margin:5px;
+}
+
+.bot{
+text-align:left;
+color:green;
+margin:5px;
+}
+
+input{
+width:75%;
+padding:8px;
+}
+
+button{
+padding:8px;
+}
+</style>
+
 </head>
 
 <body>
 
-<h1>OrgNexus AI Chatbot</h1>
-<p>If you can see this, the template is working.</p>
+<div class="chatbox">
+
+<h2>OrgNexus AI</h2>
+
+<div class="messages" id="messages"></div>
 
 <input id="message" placeholder="Ask something...">
 <button onclick="send()">Send</button>
 
-<p id="reply"></p>
+</div>
 
 <script>
+
 function send(){
 
-let msg = document.getElementById("message").value
+let msg=document.getElementById("message").value
+
+let chat=document.getElementById("messages")
+
+chat.innerHTML+=`<div class="user">${msg}</div>`
 
 fetch("/chat",{
 method:"POST",
@@ -26,10 +82,14 @@ body:JSON.stringify({message:msg})
 })
 .then(res=>res.json())
 .then(data=>{
-document.getElementById("reply").innerText=data.response
+chat.innerHTML+=`<div class="bot">${data.response}</div>`
+chat.scrollTop=chat.scrollHeight
 })
 
+document.getElementById("message").value=""
+
 }
+
 </script>
 
 </body>
