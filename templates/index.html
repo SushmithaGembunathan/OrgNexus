@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>OrgNexus AI</title>
+</head>
+
+<body>
+
+<h1>OrgNexus AI Chatbot</h1>
+<p>If you can see this, the template is working.</p>
+
+<input id="message" placeholder="Ask something...">
+<button onclick="send()">Send</button>
+
+<p id="reply"></p>
+
+<script>
+function send(){
+
+let msg = document.getElementById("message").value
+
+fetch("/chat",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({message:msg})
+})
+.then(res=>res.json())
+.then(data=>{
+document.getElementById("reply").innerText=data.response
+})
+
+}
+</script>
+
+</body>
+</html>
