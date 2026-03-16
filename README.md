@@ -148,6 +148,7 @@ Developed as an AI-based chatbot system for organizational knowledge assistance.
 
 ## 👨‍💻 Output
 
+![Image](OrgNexus.png)
 ---
 
 ## 📜 License
